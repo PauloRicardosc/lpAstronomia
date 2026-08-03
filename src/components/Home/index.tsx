@@ -1,42 +1,26 @@
-import { react } from "react";
-import Carousel from "react-material-ui-carousel";
-import { Paper, Typography } from "@mui/material";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 interface Item {
-   title: string;
+   src: string;
+   alt: string;
 }
 
 function Home() {
-   const items: Item = [
-      { title: "Item 1" },
-      { title: "Item 2" },
-      { title: "Item 3" },
+   const items: Item[] = [
+      { src: "/sky-telesc.jpg", alt: "céu-telescópio" },
+      { src: "/moon-foto.jpg", alt: "foto-lua" },
+      { src: "/exposicao_a_arte_de_fotografar_o_cosmos.jpeg", alt: "cosmos" },
+      { src: "/9-scaled.webp", alt: "céu-espaço" },
    ];
 
-   function CarouselItem({ item }: { item: Item }) {
-      return (
-         <Paper sx={{ p: 4 }}>
-            <Typography>{item.title}</Typography>
-         </Paper>
-      );
-   }
-
-   console.log(items)
    return (
       <>
-         {/* <Carousel>
-            <figure>
-               <img src="public/sky-telesc.jpg" alt="céu-telescoipio" />
-               <img src="public/moon-foto.jpg" alt="foto-lua" />
-               <img src="public/exposicao_a_arte_de_fotografar_o_cosmos.jpeg" alt="cosmos" />
-               <img src="public/9-scaled.webp" alt="céu-espaço" />
-            </figure>
-
-         </Carousel> */}
-
-         <Carousel>
+         <Carousel infiniteLoop autoPlay showThumbs={false}>
             {items.map((item) => (
-               <CarouselItem key={item.title} item={item} />
+               <div key={item.src}>
+                  <img src={item.src} alt={item.alt} />
+               </div>
             ))}
          </Carousel>
          <h1>Conheça Astronomia</h1>
