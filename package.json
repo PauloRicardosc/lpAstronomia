@@ -13,8 +13,10 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^9.2.0",
+    "axios": "^1.19.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-query": "^3.39.3",
     "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {

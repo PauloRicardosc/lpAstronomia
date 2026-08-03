@@ -1,18 +1,28 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useApi } from "../../hooks/useApi";
+import { GET_HOME_ITEMS_API } from "../../constants/constants";
 
 interface Item {
    src: string;
    alt: string;
 }
 
+const MOCK_ITEMS: Item[] = [
+   { src: "/sky-telesc.jpg", alt: "céu-telescópio" },
+   { src: "/moon-foto.jpg", alt: "foto-lua" },
+   { src: "/exposicao_a_arte_de_fotografar_o_cosmos.jpeg", alt: "cosmos" },
+   { src: "/9-scaled.webp", alt: "céu-espaço" },
+];
+
 function Home() {
-   const items: Item[] = [
-      { src: "/sky-telesc.jpg", alt: "céu-telescópio" },
-      { src: "/moon-foto.jpg", alt: "foto-lua" },
-      { src: "/exposicao_a_arte_de_fotografar_o_cosmos.jpeg", alt: "cosmos" },
-      { src: "/9-scaled.webp", alt: "céu-espaço" },
-   ];
+   const { data: items = MOCK_ITEMS } = useApi<Item[]>(
+      ["home-items"],
+      GET_HOME_ITEMS_API,
+      MOCK_ITEMS,
+      undefined,
+      { initialData: MOCK_ITEMS }
+   );
 
    return (
       <>
