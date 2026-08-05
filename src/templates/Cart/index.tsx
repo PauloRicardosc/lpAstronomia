@@ -13,7 +13,7 @@ function formatPrice(value) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-function Cart() {
+function Cart(data: any, setData:any) {
   const { data: items = MOCK_CART_ITEMS } = useApi(
     ["cart-items"],
     GET_CART_API,

@@ -8,16 +8,13 @@ import Typography from './templates/Cart'
 
 import './App.css'
 import { ReactQueryProvider } from './providers/react-query-provider'
+import Loja from './Pages'
 
 
 function App() {
   return (
     <ReactQueryProvider>
-      <Home />
-      <Cart />
-      <Register/>
-      <Box/>
-      <Typography/>
+     <Loja />
     </ReactQueryProvider>
   )
 }

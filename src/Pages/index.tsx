@@ -1,12 +1,9 @@
-import { useApi } from "../../hooks/useApi";
-import { GET_HOME_ITEMS_API } from "../../constants/constants";
-import { Box, Button, Card, CardContent, CardMedia, Checkbox, FormControlLabel, Grid } from "@mui/material";
-import { Typography } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import equip1 from "../../../public/equip1.jpg";
-
-
+import Home from "../templates/Home";
+import Cart from "../templates/Cart";
+import { useApi } from "../hooks/useApi";
+import { GET_HOME_ITEMS_API } from "../constants/constants";
 
 
 interface Item {
@@ -18,16 +15,12 @@ interface produtos {
     id: number;
 }
 
-export function app(){
-
-    const [checkinbox]= useState([]);
-    const addItemToCart = (item)=>{setCartItems(prevItems)=>[prevItems, items]
-}
-
-return(
-    
-)
-
+const MOCK_ITEMS: any[] = [
+    { src: "/sky-telesc.jpg", alt: "céu-telescópio" },
+    { src: "/moon-foto.jpg", alt: "foto-lua" },
+    { src: "/exposicao_a_arte_de_fotografar_o_cosmos.jpeg", alt: "cosmos" },
+    { src: "/9-scaled.webp", alt: "céu-espaço" },
+];
 
 
 
@@ -83,65 +76,37 @@ const MOCK_PRODUTOS: any[] = [
     },
 ];
 
-const checkinbox = MOCK_PRODUTOS.map(item => ({
-    ...item,
-    check: false
-}))
-console.log("checkinbox",)
 
 
+function Loja() {
 
-function Home() {
-
-    const [cart, setCart] = useState<produtos[]>([]);
-    const [drawerOpen, setDrawerOpen] = useState(false);
-
-    const isProductInCart = (productId: number) => {
-        return cart.some((product) => product.id === productId);
-    };
-
-    const [produtosSelecionados, setProdutosSelecionados] = useState<any[]>(checkinbox);
+    const [produtos, setProdutos] = useState<any[]>([]);
 
 
 
 
+    useEffect(() => {
+        const { data: product = MOCK_PRODUTOS } = useApi<produtos[]>(
+            ["home-items"],
+            GET_HOME_ITEMS_API,
+            MOCK_PRODUTOS,
+            undefined,
+            { initialData: MOCK_PRODUTOS }
+        );
+        setProdutos(product.map(item => ({
+            ...item,
+            check: false
+        })))
 
-    const { data: produtos = MOCK_PRODUTOS } = useApi<produtos[]>(
-        ["home-items"],
-        GET_HOME_ITEMS_API,
-        MOCK_PRODUTOS,
-        undefined,
-        { initialData: MOCK_PRODUTOS }
-    );
-
-    const Addcart = (state: boolean, id: number) => {
-        console.log("ID", id)
-        setProdutosSelecionados(prev =>
-            prev.map((produto, i) =>
-                produto.id === id ? { ...produto, check: state } : produto
-            )
-        )
-    }
-
+    }, [])
 
     return (
         <>
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <Home data={produtos} setData={setProdutos} />
+            <Cart data={produtos} setData={setProdutos} />
         </>
 
     )
 }
 
-export default Home
+export default Loja
