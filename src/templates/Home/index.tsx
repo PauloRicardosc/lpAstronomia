@@ -6,7 +6,6 @@ import { Box, Button, Card, CardContent, CardMedia, Checkbox, FormControlLabel, 
 import { Typography } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import { useState, type Dispatch, type SetStateAction } from "react";
-import equip1 from "../../../public/equip1.jpg";
 
 
 
@@ -29,7 +28,12 @@ const MOCK_ITEMS: any[] = [
 
 
 
-function Home(data: any, setData: Dispatch<SetStateAction<any>>) {
+interface HomeProps {
+   data: any;
+   setData: Dispatch<SetStateAction<any>>;
+}
+
+function Home({ data, setData }: HomeProps) {
 
    const Addcart = (state: boolean, id: number) => {
       console.log("ID", id)

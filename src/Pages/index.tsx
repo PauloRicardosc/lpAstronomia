@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import equip1 from "../../../public/equip1.jpg";
 import Home from "../templates/Home";
 import Cart from "../templates/Cart";
 import { useApi } from "../hooks/useApi";
@@ -32,7 +31,7 @@ const MOCK_PRODUTOS: any[] = [
         nome: "Telescópio profissional",
         preco: 4500,
         categoria: "registro e observção",
-        img: equip1, alt: "telescopio"
+        img: "/equip1.jpg", alt: "telescopio"
     },
 
     {
@@ -40,7 +39,7 @@ const MOCK_PRODUTOS: any[] = [
         nome: "Binóculo",
         preco: 250,
         categoria: "Observação",
-        img: "public/equip2.jpg", alt: "binoculo"
+        img: "/equip2.jpg", alt: "binoculo"
     },
 
     {
@@ -48,7 +47,7 @@ const MOCK_PRODUTOS: any[] = [
         nome: "Telescópio",
         preco: 500,
         categoria: "Observação",
-        img: "public/equip3.webp", alt: "telescopio aut"
+        img: "/equip3.webp", alt: "telescopio aut"
     },
 
     {
@@ -56,7 +55,7 @@ const MOCK_PRODUTOS: any[] = [
         nome: "Monóculo iniciante",
         preco: 320,
         categoria: "Observação",
-        img: "public/equip4.jpeg", alt: "monoculo"
+        img: "/equip4.jpeg", alt: "monoculo"
     },
 
     {
@@ -64,7 +63,7 @@ const MOCK_PRODUTOS: any[] = [
         nome: "Telescópio automatico",
         preco: 1200,
         categoria: "registro e observação",
-        img: "public/equip5.png", alt: "telescopio iniciante"
+        img: "/equip5.png", alt: "telescopio iniciante"
     },
 
     {
@@ -72,7 +71,7 @@ const MOCK_PRODUTOS: any[] = [
         nome: "Telescópio personalizado",
         preco: 3500,
         categoria: "regidtro e observação",
-        img: "public/equip6.webp", alt: "telescopio person"
+        img: "/equip6.webp", alt: "telescopio person"
     },
 ];
 
@@ -85,20 +84,21 @@ function Loja() {
 
 
 
+    const { data: product = MOCK_PRODUTOS } = useApi<produtos[]>(
+        ["home-items"],
+        GET_HOME_ITEMS_API,
+        MOCK_PRODUTOS,
+        undefined,
+        { initialData: MOCK_PRODUTOS }
+    );
+
     useEffect(() => {
-        const { data: product = MOCK_PRODUTOS } = useApi<produtos[]>(
-            ["home-items"],
-            GET_HOME_ITEMS_API,
-            MOCK_PRODUTOS,
-            undefined,
-            { initialData: MOCK_PRODUTOS }
-        );
         setProdutos(product.map(item => ({
             ...item,
             check: false
         })))
 
-    }, [])
+    }, [product])
 
     return (
         <>
